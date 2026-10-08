@@ -1,0 +1,16 @@
+.site-header {
+  background-color: var(--red);
+  color: var(--white);
+  padding: 3.5rem 1rem 1.5rem;
+}
+
+.site-header > a {
+  display: block;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.site-header__logo {
+  width: 340px;
+  max-width: 100%;
+}

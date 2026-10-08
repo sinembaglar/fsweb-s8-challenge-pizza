@@ -7,6 +7,36 @@ describe('Anasayfa', () => {
     cy.location('pathname').should('eq', '/siparis')
     cy.get('[data-cy="order-form"]').should('be.visible')
   })
+
+  it('kategori butonları ürünleri filtreler', () => {
+    cy.visit('/')
+    cy.get('[data-cy="product-card"]').should('have.length', 3)
+
+    cy.contains('[data-cy="filter-pill"]', 'Burger').click().should('have.attr', 'aria-pressed', 'true')
+    cy.get('[data-cy="product-card"]').should('have.length', 1).and('contain', 'Burger')
+
+    cy.contains('[data-cy="filter-pill"]', 'Pizza').click()
+    cy.get('[data-cy="product-card"]').should('have.length', 2)
+
+    cy.contains('[data-cy="filter-pill"]', 'Ramen').click()
+    cy.get('[data-cy="menu-empty"]').should('be.visible')
+
+    cy.contains('[data-cy="filter-pill"]', 'Ramen').click().should('have.attr', 'aria-pressed', 'false')
+    cy.get('[data-cy="product-card"]').should('have.length', 3)
+  })
+
+  it('üst menüden kategori seçilince menü filtrelenir', () => {
+    cy.visit('/')
+    cy.contains('[data-cy="category-nav-item"]', 'Burger').click()
+    cy.contains('[data-cy="filter-pill"]', 'Burger').should('have.attr', 'aria-pressed', 'true')
+    cy.get('[data-cy="product-card"]').should('have.length', 1)
+  })
+
+  it('kampanya kartından sipariş formuna gidilir', () => {
+    cy.visit('/')
+    cy.get('[data-cy="promo-cta"]').click()
+    cy.location('pathname').should('eq', '/siparis')
+  })
 })
 
 describe('Sipariş formu', () => {

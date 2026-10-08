@@ -132,3 +132,5 @@ dist
 # Cypress
 cypress/screenshots/
 cypress/videos/
+.vercel
+.env*

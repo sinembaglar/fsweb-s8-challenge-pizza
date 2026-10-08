@@ -2,6 +2,8 @@
 
 Workintech Full Stack Web Development programının S8 challenge projesi. Bilgisayar başında acıkan yazılımcılar için hazırlanmış bir pizza sipariş sitesi.
 
+**Canlı Demo:** https://fsweb-s8-challenge-pizza-rho.vercel.app
+
 **Akış:** Anasayfa → Sipariş Formu → Sipariş Onayı
 
 ## Özellikler

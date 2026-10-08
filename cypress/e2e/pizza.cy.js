@@ -79,7 +79,14 @@ describe('Sipariş formu', () => {
       expect(request.body.malzemeler).to.have.length(4)
     })
     cy.location('pathname').should('eq', '/onay')
-    cy.get('[data-cy="success-title"]').should('contain', 'SİPARİŞİNİZ ALINDI')
+    cy.get('[data-cy="success-title"]').should('contain', 'SİPARİŞ ALINDI')
+    cy.get('[data-cy="order-meta"]').should('contain', '#123')
+    cy.get('[data-cy="order-name"]').should('have.text', 'Sinem Bağlar')
+    cy.get('[data-cy="order-size"]').should('have.text', 'M')
+    cy.get('[data-cy="order-dough"]').should('have.text', 'İnce')
+    cy.get('[data-cy="order-toppings"]').should('have.text', 'Pepperoni, Domates, Biber, Sosis')
+    cy.get('[data-cy="order-extras"]').should('have.text', '20.00₺')
+    cy.get('[data-cy="order-total"]').should('have.text', '105.50₺')
   })
 
   it('ağ hatasında kullanıcıya mesaj gösterir ve sayfada kalır', () => {
@@ -90,6 +97,15 @@ describe('Sipariş formu', () => {
 
     cy.wait('@postOrder')
     cy.get('[data-cy="submit-error"]').should('contain', 'İnternete bağlanılamadı')
+    cy.location('pathname').should('eq', '/siparis')
+  })
+})
+
+describe('Sipariş onayı', () => {
+  it('sipariş verilmeden açılınca forma yönlendiren mesaj gösterir', () => {
+    cy.visit('/onay')
+    cy.get('[data-cy="no-order"]').should('contain', 'HENÜZ SİPARİŞ YOK')
+    cy.get('[data-cy="no-order"] a').click()
     cy.location('pathname').should('eq', '/siparis')
   })
 })

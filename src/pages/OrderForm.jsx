@@ -45,7 +45,7 @@ const getFormErrors = (form) =>
     return acc
   }, {})
 
-export default function OrderForm() {
+export default function OrderForm({ onOrderSuccess }) {
   const [form, setForm] = useState(initialForm)
   const [errors, setErrors] = useState({})
   const [quantity, setQuantity] = useState(1)
@@ -96,6 +96,7 @@ export default function OrderForm() {
     postOrder(order)
       .then((response) => {
         console.log('Sipariş özeti:', response.data)
+        onOrderSuccess(response.data)
         history.push('/onay')
       })
       .catch((error) => {

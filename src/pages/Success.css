@@ -7,15 +7,23 @@
 }
 
 .success .site-header {
-  padding-top: 6rem;
+  padding-top: 3.5rem;
 }
 
 .success__content {
-  display: grid;
+  display: flex;
   flex: 1;
-  place-items: center;
-  padding: 2rem 1rem 8rem;
+  flex-direction: column;
+  align-items: center;
+  padding: 4rem 1rem 6rem;
   text-align: center;
+}
+
+.success__tagline {
+  margin: 0;
+  color: var(--yellow);
+  font-family: var(--font-script);
+  font-size: 2rem;
 }
 
 .success__title {
@@ -27,8 +35,102 @@
   letter-spacing: 0.01em;
 }
 
-@media (max-width: 600px) {
-  .success .site-header {
-    padding-top: 3.5rem;
-  }
+.success__divider {
+  width: min(100%, 580px);
+  margin: 2.5rem 0;
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.success__details h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.success__meta {
+  margin: 0.5rem 0 0;
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+
+.success__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 260px;
+  margin: 2.5rem auto 0;
+  text-align: left;
+}
+
+.success__list div,
+.success__summary div {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.success__list dt {
+  flex-shrink: 0;
+  font-weight: 300;
+}
+
+.success__list dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+.success__summary {
+  width: min(100%, 290px);
+  margin-top: 3rem;
+  padding: 2rem 3rem;
+  border: 1px solid var(--white);
+  border-radius: 6px;
+  text-align: left;
+}
+
+.success__summary h2 {
+  margin: 0 0 1.25rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.success__summary dl {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.success__summary div {
+  justify-content: space-between;
+  font-weight: 600;
+}
+
+.success__summary dd {
+  margin: 0;
+}
+
+.success__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 4rem;
+}
+
+.success__empty p {
+  margin: 0;
+}
+
+.success__link {
+  padding: 1rem 3rem;
+  border-radius: 50px;
+  background-color: var(--yellow);
+  color: var(--dark-gray);
+  font-weight: 600;
+}
+
+.success__link:focus-visible {
+  outline: 2px solid var(--white);
+  outline-offset: 3px;
 }

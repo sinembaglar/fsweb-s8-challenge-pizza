@@ -130,6 +130,18 @@
     box-shadow 0.25s;
 }
 
+.promo--large {
+  --promo-bg: var(--red);
+}
+
+.promo--dark {
+  --promo-bg: var(--dark-gray);
+}
+
+.promo--light {
+  --promo-bg: #ffeecc;
+}
+
 .promo:hover {
   transform: translateY(-4px);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
@@ -332,6 +344,38 @@
 }
 
 /* Responsive */
+@media (max-width: 1400px) {
+  /* Pizza görselin alt %44'ünde; görsel yüksekliği sabitlenip alta yaslanınca
+     içerik her zaman pizzanın üstünde kalır */
+  .home {
+    --hero-image-height: max(720px, 62vw);
+    min-height: 0;
+    padding-bottom: calc(var(--hero-image-height) * 0.45);
+    background-size: auto var(--hero-image-height);
+  }
+}
+
+@media (max-width: 1100px) {
+  .category-nav ul {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1rem 0.5rem;
+  }
+
+  .category-nav button {
+    flex-direction: column;
+    gap: 0.4rem;
+    width: 100%;
+    font-size: 0.85rem;
+  }
+
+  .menu__filters {
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow-x: visible;
+  }
+}
+
 @media (max-width: 900px) {
   .promos {
     grid-template-columns: 1fr;
@@ -349,25 +393,27 @@
 }
 
 @media (max-width: 600px) {
-  .home {
-    background-size: auto 55vh;
-  }
-
   .category-nav ul {
-    display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1rem 0.5rem;
   }
 
-  .category-nav button {
-    flex-direction: column;
-    gap: 0.4rem;
-    width: 100%;
-    font-size: 0.85rem;
+  .filter-pill {
+    padding: 0.5rem 1.25rem;
   }
 
   .promo {
+    position: relative;
+    isolation: isolate;
     padding: 1.75rem;
+    background-position: right center;
+  }
+
+  .promo::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(90deg, var(--promo-bg) 40%, transparent 85%);
   }
 
   .promo__title--serif {

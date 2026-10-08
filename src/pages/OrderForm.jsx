@@ -127,11 +127,12 @@ export default function OrderForm({ onOrderSuccess }) {
           <h1 id="product-name">{PIZZA.name}</h1>
           <div className="product__meta">
             <p className="product__price">{PIZZA.price.toFixed(2)}₺</p>
-            <p className="product__rating" aria-label={`Puan ${PIZZA.rating}`}>
+            <p className="product__rating">
+              <span className="visually-hidden">Puan: </span>
               {PIZZA.rating}
             </p>
-            <p className="product__reviews" aria-label={`${PIZZA.reviewCount} değerlendirme`}>
-              ({PIZZA.reviewCount})
+            <p className="product__reviews">
+              <span className="visually-hidden">Değerlendirme sayısı: </span>({PIZZA.reviewCount})
             </p>
           </div>
           <p className="product__description">{PIZZA.description}</p>

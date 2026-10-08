@@ -9,9 +9,17 @@ export default function ProductCard({ product }) {
           <Link to="/siparis">{product.name}</Link>
         </h3>
         <div className="product-card__meta">
-          <span aria-label={`Puan ${product.rating}`}>{product.rating}</span>
-          <span aria-label={`${product.reviewCount} değerlendirme`}>({product.reviewCount})</span>
-          <strong>{product.price}₺</strong>
+          <span>
+            <span className="visually-hidden">Puan: </span>
+            {product.rating}
+          </span>
+          <span>
+            <span className="visually-hidden">Değerlendirme sayısı: </span>({product.reviewCount})
+          </span>
+          <strong>
+            <span className="visually-hidden">Fiyat: </span>
+            {product.price}₺
+          </strong>
         </div>
       </article>
     </li>

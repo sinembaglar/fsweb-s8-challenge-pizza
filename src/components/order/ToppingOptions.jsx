@@ -14,7 +14,7 @@ export default function ToppingOptions({ toppings, selected, onChange, error, mi
           const id = `malzeme-${topping.toLowerCase().replace(/\s+/g, '-')}`
           const isChecked = selected.includes(topping)
           return (
-            <label key={topping} className="choice choice--bold" htmlFor={id}>
+            <label key={topping} className="topping-option" htmlFor={id}>
               <input
                 type="checkbox"
                 id={id}

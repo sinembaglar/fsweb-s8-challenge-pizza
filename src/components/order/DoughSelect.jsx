@@ -17,7 +17,7 @@ export default function DoughSelect({ doughs, selected, onChange, error }) {
         data-cy="dough-select"
       >
         <option value="" disabled>
-          Hamur Kalınlığı
+          —Hamur Kalınlığı Seç—
         </option>
         {doughs.map((dough) => (
           <option key={dough} value={dough}>

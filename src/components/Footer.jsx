@@ -22,7 +22,7 @@ const MENU_ITEMS = [
 
 const INSTAGRAM_IMAGES = [insta0, insta1, insta2, insta3, insta4, insta5]
 
-export default function Footer() {
+export default function Footer({ menuTitle = 'Sıccacık Menuler' }) {
   return (
     <footer className="site-footer">
       <div className="site-footer__inner">
@@ -49,7 +49,7 @@ export default function Footer() {
         </section>
 
         <nav className="site-footer__menu" aria-labelledby="footer-menu-title">
-          <h2 id="footer-menu-title">Sıccacık Menuler</h2>
+          <h2 id="footer-menu-title">{menuTitle}</h2>
           <ul>
             {MENU_ITEMS.map((item) => (
               <li key={item}>

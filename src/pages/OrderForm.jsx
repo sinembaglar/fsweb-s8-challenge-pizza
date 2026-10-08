@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import Header from '../components/Header'
+import Footer from '../components/Footer'
 import SizeOptions from '../components/order/SizeOptions'
 import DoughSelect from '../components/order/DoughSelect'
 import ToppingOptions from '../components/order/ToppingOptions'
@@ -18,6 +19,7 @@ import {
   MAX_TOPPINGS,
   MIN_NAME_LENGTH,
 } from '../data/pizza'
+import formBanner from '../../images/iteration-2-images/pictures/form-banner.png'
 import './OrderForm.css'
 
 const initialForm = {
@@ -108,20 +110,20 @@ export default function OrderForm({ onOrderSuccess }) {
 
   return (
     <>
-      <Header>
-        <nav aria-label="Sayfa konumu" className="breadcrumb">
-          <ol>
-            <li>
-              <Link to="/">Anasayfa</Link>
-            </li>
-            <li>Seçenekler</li>
-            <li aria-current="page">Sipariş Oluştur</li>
-          </ol>
-        </nav>
-      </Header>
+      <Header />
 
       <main className="order">
         <section className="product" aria-labelledby="product-name">
+          <img src={formBanner} alt="" className="product__banner" />
+          <nav aria-label="Sayfa konumu" className="breadcrumb">
+            <ol>
+              <li>
+                <Link to="/">Anasayfa</Link>
+              </li>
+              <li>Seçenekler</li>
+              <li aria-current="page">Sipariş Oluştur</li>
+            </ol>
+          </nav>
           <h1 id="product-name">{PIZZA.name}</h1>
           <div className="product__meta">
             <p className="product__price">{PIZZA.price.toFixed(2)}₺</p>
@@ -213,6 +215,7 @@ export default function OrderForm({ onOrderSuccess }) {
           </div>
         </form>
       </main>
+      <Footer menuTitle="Hot Menu" />
     </>
   )
 }

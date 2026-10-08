@@ -6,9 +6,9 @@ export default function SizeOptions({ sizes, selected, onChange, error }) {
       <legend className="form-group__title">
         Boyut Seç <span className="required" aria-hidden="true">*</span>
       </legend>
-      <div className="radio-list">
+      <div className="size-list">
         {sizes.map((size) => (
-          <label key={size.value} className="choice" htmlFor={`boyut-${size.value}`}>
+          <label key={size.value} className="size-option" htmlFor={`boyut-${size.value}`}>
             <input
               type="radio"
               id={`boyut-${size.value}`}
@@ -17,9 +17,13 @@ export default function SizeOptions({ sizes, selected, onChange, error }) {
               checked={selected === size.value}
               onChange={onChange}
               required
+              className="visually-hidden"
               data-cy={`size-${size.value}`}
             />
-            <span>{size.label}</span>
+            <span className="size-option__circle" aria-hidden="true">
+              {size.value}
+            </span>
+            <span className="visually-hidden">{size.label}</span>
           </label>
         ))}
       </div>

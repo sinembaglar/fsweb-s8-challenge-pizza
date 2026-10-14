@@ -30,6 +30,42 @@ export default function OrderPizza() {
             kökenli lezzetli bir yemektir. Küçük bir pizzaya bazen pizzetta denir.
           </p>
         </section>
+
+        <form>
+          <div>
+            <fieldset>
+              <legend>
+                Boyut Seç <span aria-hidden="true">*</span>
+              </legend>
+              <div>
+                <input type="radio" id="boyut-kucuk" name="boyut" value="Küçük" />
+                <label htmlFor="boyut-kucuk">Küçük</label>
+              </div>
+              <div>
+                <input type="radio" id="boyut-orta" name="boyut" value="Orta" />
+                <label htmlFor="boyut-orta">Orta</label>
+              </div>
+              <div>
+                <input type="radio" id="boyut-buyuk" name="boyut" value="Büyük" />
+                <label htmlFor="boyut-buyuk">Büyük</label>
+              </div>
+            </fieldset>
+
+            <div>
+              <label htmlFor="hamur">
+                Hamur Seç <span aria-hidden="true">*</span>
+              </label>
+              <select id="hamur" name="hamur" defaultValue="">
+                <option value="" disabled>
+                  Hamur Kalınlığı
+                </option>
+                <option value="İnce">İnce</option>
+                <option value="Orta">Orta</option>
+                <option value="Kalın">Kalın</option>
+              </select>
+            </div>
+          </div>
+        </form>
       </main>
     </>
   )

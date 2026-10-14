@@ -102,6 +102,58 @@ export default function OrderPizza() {
               ))}
             </div>
           </fieldset>
+
+          <div>
+            <label htmlFor="isim">
+              İsim <span aria-hidden="true">*</span>
+            </label>
+            <input
+              type="text"
+              id="isim"
+              name="isim"
+              placeholder="Adınızı girin (en az 3 karakter)"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="not">Sipariş Notu</label>
+            <textarea
+              id="not"
+              name="not"
+              placeholder="Siparişine eklemek istediğin bir not var mı?"
+            />
+          </div>
+
+          <hr />
+
+          <div>
+            <div>
+              <button type="button" aria-label="Adedi azalt">
+                -
+              </button>
+              <span aria-live="polite">1</span>
+              <button type="button" aria-label="Adedi artır">
+                +
+              </button>
+            </div>
+
+            <div>
+              <section aria-labelledby="toplam-baslik">
+                <h3 id="toplam-baslik">Sipariş Toplamı</h3>
+                <dl>
+                  <div>
+                    <dt>Seçimler</dt>
+                    <dd>0.00₺</dd>
+                  </div>
+                  <div>
+                    <dt>Toplam</dt>
+                    <dd>85.50₺</dd>
+                  </div>
+                </dl>
+              </section>
+              <button type="submit">SİPARİŞ VER</button>
+            </div>
+          </div>
         </form>
       </main>
     </>

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import logo from '../../images/iteration-1-images/logo.svg'
 
@@ -18,7 +19,32 @@ const malzemeler = [
   { id: 'sarimsak', ad: 'Sarımsak' },
 ]
 
+const initialForm = {
+  isim: '',
+  boyut: '',
+  hamur: '',
+  malzemeler: [],
+  not: '',
+}
+
 export default function OrderPizza() {
+  const [form, setForm] = useState(initialForm)
+
+  function handleChange(event) {
+    const { name, value, type, checked } = event.target
+
+    if (type === 'checkbox') {
+      setForm((prev) => ({
+        ...prev,
+        malzemeler: checked
+          ? [...prev.malzemeler, value]
+          : prev.malzemeler.filter((malzeme) => malzeme !== value),
+      }))
+    } else {
+      setForm((prev) => ({ ...prev, [name]: value }))
+    }
+  }
+
   return (
     <>
       <header>
@@ -55,15 +81,36 @@ export default function OrderPizza() {
                 Boyut Seç <span aria-hidden="true">*</span>
               </legend>
               <div>
-                <input type="radio" id="boyut-kucuk" name="boyut" value="Küçük" />
+                <input
+                  type="radio"
+                  id="boyut-kucuk"
+                  name="boyut"
+                  value="Küçük"
+                  checked={form.boyut === 'Küçük'}
+                  onChange={handleChange}
+                />
                 <label htmlFor="boyut-kucuk">Küçük</label>
               </div>
               <div>
-                <input type="radio" id="boyut-orta" name="boyut" value="Orta" />
+                <input
+                  type="radio"
+                  id="boyut-orta"
+                  name="boyut"
+                  value="Orta"
+                  checked={form.boyut === 'Orta'}
+                  onChange={handleChange}
+                />
                 <label htmlFor="boyut-orta">Orta</label>
               </div>
               <div>
-                <input type="radio" id="boyut-buyuk" name="boyut" value="Büyük" />
+                <input
+                  type="radio"
+                  id="boyut-buyuk"
+                  name="boyut"
+                  value="Büyük"
+                  checked={form.boyut === 'Büyük'}
+                  onChange={handleChange}
+                />
                 <label htmlFor="boyut-buyuk">Büyük</label>
               </div>
             </fieldset>
@@ -72,7 +119,12 @@ export default function OrderPizza() {
               <label htmlFor="hamur">
                 Hamur Seç <span aria-hidden="true">*</span>
               </label>
-              <select id="hamur" name="hamur" defaultValue="">
+              <select
+                id="hamur"
+                name="hamur"
+                value={form.hamur}
+                onChange={handleChange}
+              >
                 <option value="" disabled>
                   Hamur Kalınlığı
                 </option>
@@ -96,6 +148,8 @@ export default function OrderPizza() {
                     id={malzeme.id}
                     name="malzemeler"
                     value={malzeme.ad}
+                    checked={form.malzemeler.includes(malzeme.ad)}
+                    onChange={handleChange}
                   />
                   <label htmlFor={malzeme.id}>{malzeme.ad}</label>
                 </div>
@@ -112,6 +166,8 @@ export default function OrderPizza() {
               id="isim"
               name="isim"
               placeholder="Adınızı girin (en az 3 karakter)"
+              value={form.isim}
+              onChange={handleChange}
             />
           </div>
 
@@ -121,6 +177,8 @@ export default function OrderPizza() {
               id="not"
               name="not"
               placeholder="Siparişine eklemek istediğin bir not var mı?"
+              value={form.not}
+              onChange={handleChange}
             />
           </div>
 

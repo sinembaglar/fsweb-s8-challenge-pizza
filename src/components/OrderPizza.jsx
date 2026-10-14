@@ -19,6 +19,9 @@ const malzemeler = [
   { id: 'sarimsak', ad: 'Sarımsak' },
 ]
 
+const PIZZA_FIYATI = 85.5
+const MALZEME_FIYATI = 5
+
 const initialForm = {
   isim: '',
   boyut: '',
@@ -29,6 +32,10 @@ const initialForm = {
 
 export default function OrderPizza() {
   const [form, setForm] = useState(initialForm)
+  const [adet, setAdet] = useState(1)
+
+  const secimlerFiyati = form.malzemeler.length * MALZEME_FIYATI * adet
+  const toplamFiyat = PIZZA_FIYATI * adet + secimlerFiyati
 
   function handleChange(event) {
     const { name, value, type, checked } = event.target
@@ -60,7 +67,7 @@ export default function OrderPizza() {
         <section>
           <h2>Position Absolute Acı Pizza</h2>
           <div>
-            <p>85.50₺</p>
+            <p>{PIZZA_FIYATI.toFixed(2)}₺</p>
             <p>4.9</p>
             <p>(200)</p>
           </div>
@@ -186,11 +193,20 @@ export default function OrderPizza() {
 
           <div>
             <div>
-              <button type="button" aria-label="Adedi azalt">
+              <button
+                type="button"
+                aria-label="Adedi azalt"
+                onClick={() => setAdet((prev) => prev - 1)}
+                disabled={adet === 1}
+              >
                 -
               </button>
-              <span aria-live="polite">1</span>
-              <button type="button" aria-label="Adedi artır">
+              <span aria-live="polite">{adet}</span>
+              <button
+                type="button"
+                aria-label="Adedi artır"
+                onClick={() => setAdet((prev) => prev + 1)}
+              >
                 +
               </button>
             </div>
@@ -201,11 +217,11 @@ export default function OrderPizza() {
                 <dl>
                   <div>
                     <dt>Seçimler</dt>
-                    <dd>0.00₺</dd>
+                    <dd>{secimlerFiyati.toFixed(2)}₺</dd>
                   </div>
                   <div>
                     <dt>Toplam</dt>
-                    <dd>85.50₺</dd>
+                    <dd>{toplamFiyat.toFixed(2)}₺</dd>
                   </div>
                 </dl>
               </section>

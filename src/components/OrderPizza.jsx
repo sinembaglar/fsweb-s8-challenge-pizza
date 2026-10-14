@@ -1,6 +1,23 @@
 import { Link } from 'react-router-dom'
 import logo from '../../images/iteration-1-images/logo.svg'
 
+const malzemeler = [
+  { id: 'pepperoni', ad: 'Pepperoni' },
+  { id: 'domates', ad: 'Domates' },
+  { id: 'biber', ad: 'Biber' },
+  { id: 'sosis', ad: 'Sosis' },
+  { id: 'misir', ad: 'Mısır' },
+  { id: 'sucuk', ad: 'Sucuk' },
+  { id: 'kanada-jambonu', ad: 'Kanada Jambonu' },
+  { id: 'zeytin', ad: 'Zeytin' },
+  { id: 'ananas', ad: 'Ananas' },
+  { id: 'tavuk-izgara', ad: 'Tavuk Izgara' },
+  { id: 'jalepeno', ad: 'Jalepeno' },
+  { id: 'kabak', ad: 'Kabak' },
+  { id: 'sogan', ad: 'Soğan' },
+  { id: 'sarimsak', ad: 'Sarımsak' },
+]
+
 export default function OrderPizza() {
   return (
     <>
@@ -65,6 +82,26 @@ export default function OrderPizza() {
               </select>
             </div>
           </div>
+
+          <fieldset aria-describedby="malzeme-aciklama">
+            <legend>Ek Malzemeler</legend>
+            <p id="malzeme-aciklama">
+              En az 4, en fazla 10 malzeme seçebilirsiniz. 5₺
+            </p>
+            <div>
+              {malzemeler.map((malzeme) => (
+                <div key={malzeme.id}>
+                  <input
+                    type="checkbox"
+                    id={malzeme.id}
+                    name="malzemeler"
+                    value={malzeme.ad}
+                  />
+                  <label htmlFor={malzeme.id}>{malzeme.ad}</label>
+                </div>
+              ))}
+            </div>
+          </fieldset>
         </form>
       </main>
     </>

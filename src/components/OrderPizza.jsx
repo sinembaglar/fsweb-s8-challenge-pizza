@@ -30,8 +30,33 @@ const initialForm = {
   not: '',
 }
 
+const initialErrors = {
+  isim: false,
+  malzemeler: false,
+}
+
+const errorMessages = {
+  isim: 'İsim en az 3 karakter olmalı.',
+  malzemeler: 'En az 4, en fazla 10 malzeme seçmelisiniz.',
+}
+
+function isFieldValid(name, value) {
+  switch (name) {
+    case 'isim':
+      return value.trim().length >= 3
+    case 'boyut':
+    case 'hamur':
+      return value !== ''
+    case 'malzemeler':
+      return value.length >= 4 && value.length <= 10
+    default:
+      return true
+  }
+}
+
 export default function OrderPizza() {
   const [form, setForm] = useState(initialForm)
+  const [errors, setErrors] = useState(initialErrors)
   const [adet, setAdet] = useState(1)
 
   const secimlerFiyati = form.malzemeler.length * MALZEME_FIYATI * adet
@@ -40,15 +65,16 @@ export default function OrderPizza() {
   function handleChange(event) {
     const { name, value, type, checked } = event.target
 
+    let newValue = value
     if (type === 'checkbox') {
-      setForm((prev) => ({
-        ...prev,
-        malzemeler: checked
-          ? [...prev.malzemeler, value]
-          : prev.malzemeler.filter((malzeme) => malzeme !== value),
-      }))
-    } else {
-      setForm((prev) => ({ ...prev, [name]: value }))
+      newValue = checked
+        ? [...form.malzemeler, value]
+        : form.malzemeler.filter((malzeme) => malzeme !== value)
+    }
+
+    setForm((prev) => ({ ...prev, [name]: newValue }))
+    if (name in errorMessages) {
+      setErrors((prev) => ({ ...prev, [name]: !isFieldValid(name, newValue) }))
     }
   }
 
@@ -162,6 +188,9 @@ export default function OrderPizza() {
                 </div>
               ))}
             </div>
+            {errors.malzemeler && (
+              <p role="alert">{errorMessages.malzemeler}</p>
+            )}
           </fieldset>
 
           <div>
@@ -175,7 +204,14 @@ export default function OrderPizza() {
               placeholder="Adınızı girin (en az 3 karakter)"
               value={form.isim}
               onChange={handleChange}
+              aria-invalid={errors.isim}
+              aria-describedby={errors.isim ? 'isim-hata' : undefined}
             />
+            {errors.isim && (
+              <p id="isim-hata" role="alert">
+                {errorMessages.isim}
+              </p>
+            )}
           </div>
 
           <div>

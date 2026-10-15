@@ -62,6 +62,10 @@ export default function OrderPizza() {
   const secimlerFiyati = form.malzemeler.length * MALZEME_FIYATI * adet
   const toplamFiyat = PIZZA_FIYATI * adet + secimlerFiyati
 
+  const isFormValid = ['isim', 'boyut', 'hamur', 'malzemeler'].every((name) =>
+    isFieldValid(name, form[name]),
+  )
+
   function handleChange(event) {
     const { name, value, type, checked } = event.target
 
@@ -76,6 +80,14 @@ export default function OrderPizza() {
     if (name in errorMessages) {
       setErrors((prev) => ({ ...prev, [name]: !isFieldValid(name, newValue) }))
     }
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault()
+    if (!isFormValid) return
+
+    const siparis = { ...form, adet, toplam: toplamFiyat }
+    console.log(siparis)
   }
 
   return (
@@ -107,7 +119,7 @@ export default function OrderPizza() {
           </p>
         </section>
 
-        <form>
+        <form onSubmit={handleSubmit}>
           <div>
             <fieldset>
               <legend>
@@ -261,7 +273,9 @@ export default function OrderPizza() {
                   </div>
                 </dl>
               </section>
-              <button type="submit">SİPARİŞ VER</button>
+              <button type="submit" disabled={!isFormValid}>
+                SİPARİŞ VER
+              </button>
             </div>
           </div>
         </form>

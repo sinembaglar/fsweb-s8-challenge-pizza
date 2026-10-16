@@ -1,10 +1,23 @@
 import { Link } from 'react-router-dom'
+import logo from '../../images/iteration-1-images/logo.svg'
+import './Success.css'
 
 export default function Success() {
   return (
-    <main>
-      <h1>Tebrikler! Siparişiniz Alındı!</h1>
-      <Link to="/">Anasayfa</Link>
-    </main>
+    <div className="success">
+      <header>
+        <Link to="/" aria-label="Anasayfaya dön">
+          <img src={logo} alt="Teknolojik Yemekler" className="success-logo" />
+        </Link>
+      </header>
+
+      <main className="success-message">
+        <h1>
+          TEBRİKLER!
+          <br />
+          SİPARİŞİNİZ ALINDI!
+        </h1>
+      </main>
+    </div>
   )
 }

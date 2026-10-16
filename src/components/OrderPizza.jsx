@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import axios from 'axios'
 import logo from '../../images/iteration-1-images/logo.svg'
+import './OrderPizza.css'
 
 const malzemeler = [
   { id: 'pepperoni', ad: 'Pepperoni' },
@@ -108,24 +109,26 @@ export default function OrderPizza() {
 
   return (
     <>
-      <header>
+      <header className="order-header">
         <img src={logo} alt="Teknolojik Yemekler" />
-        <nav>
+        <nav className="breadcrumb" aria-label="Sayfa yolu">
           <Link to="/">Anasayfa</Link>
-          <span> - </span>
-          <strong>Sipariş Oluştur</strong>
+          <span aria-hidden="true"> - </span>
+          <span>Seçenekler</span>
+          <span aria-hidden="true"> - </span>
+          <strong aria-current="page">Sipariş Oluştur</strong>
         </nav>
       </header>
 
-      <main>
-        <section>
+      <main className="order-page">
+        <section className="pizza-info">
           <h2>Position Absolute Acı Pizza</h2>
-          <div>
-            <p>{PIZZA_FIYATI.toFixed(2)}₺</p>
+          <div className="pizza-meta">
+            <p className="pizza-price">{PIZZA_FIYATI.toFixed(2)}₺</p>
             <p>4.9</p>
             <p>(200)</p>
           </div>
-          <p>
+          <p className="pizza-description">
             Frontent Dev olarak hala position:absolute kullanıyorsan bu çok acı
             pizza tam sana göre. Pizza, domates, peynir ve genellikle çeşitli
             diğer malzemelerle kaplanmış, daha sonra geleneksel olarak odun
@@ -135,13 +138,13 @@ export default function OrderPizza() {
           </p>
         </section>
 
-        <form onSubmit={handleSubmit}>
-          <div>
-            <fieldset>
-              <legend>
-                Boyut Seç <span aria-hidden="true">*</span>
+        <form className="order-form" onSubmit={handleSubmit}>
+          <div className="form-row">
+            <fieldset className="form-group">
+              <legend className="form-title">
+                Boyut Seç <span className="required" aria-hidden="true">*</span>
               </legend>
-              <div>
+              <div className="option">
                 <input
                   type="radio"
                   id="boyut-kucuk"
@@ -152,7 +155,7 @@ export default function OrderPizza() {
                 />
                 <label htmlFor="boyut-kucuk">Küçük</label>
               </div>
-              <div>
+              <div className="option">
                 <input
                   type="radio"
                   id="boyut-orta"
@@ -163,7 +166,7 @@ export default function OrderPizza() {
                 />
                 <label htmlFor="boyut-orta">Orta</label>
               </div>
-              <div>
+              <div className="option">
                 <input
                   type="radio"
                   id="boyut-buyuk"
@@ -176,9 +179,9 @@ export default function OrderPizza() {
               </div>
             </fieldset>
 
-            <div>
-              <label htmlFor="hamur">
-                Hamur Seç <span aria-hidden="true">*</span>
+            <div className="form-group">
+              <label htmlFor="hamur" className="form-title">
+                Hamur Seç <span className="required" aria-hidden="true">*</span>
               </label>
               <select
                 id="hamur"
@@ -196,14 +199,14 @@ export default function OrderPizza() {
             </div>
           </div>
 
-          <fieldset aria-describedby="malzeme-aciklama">
-            <legend>Ek Malzemeler</legend>
-            <p id="malzeme-aciklama">
+          <fieldset className="form-group" aria-describedby="malzeme-aciklama">
+            <legend className="form-title">Ek Malzemeler</legend>
+            <p id="malzeme-aciklama" className="form-hint">
               En az 4, en fazla 10 malzeme seçebilirsiniz. 5₺
             </p>
-            <div>
+            <div className="toppings">
               {malzemeler.map((malzeme) => (
-                <div key={malzeme.id}>
+                <div key={malzeme.id} className="option">
                   <input
                     type="checkbox"
                     id={malzeme.id}
@@ -217,18 +220,21 @@ export default function OrderPizza() {
               ))}
             </div>
             {errors.malzemeler && (
-              <p role="alert">{errorMessages.malzemeler}</p>
+              <p className="error" role="alert">
+                {errorMessages.malzemeler}
+              </p>
             )}
           </fieldset>
 
-          <div>
-            <label htmlFor="isim">
-              İsim <span aria-hidden="true">*</span>
+          <div className="form-group">
+            <label htmlFor="isim" className="form-title">
+              İsim <span className="required" aria-hidden="true">*</span>
             </label>
             <input
               type="text"
               id="isim"
               name="isim"
+              className="text-field"
               placeholder="Adınızı girin (en az 3 karakter)"
               value={form.isim}
               onChange={handleChange}
@@ -236,27 +242,30 @@ export default function OrderPizza() {
               aria-describedby={errors.isim ? 'isim-hata' : undefined}
             />
             {errors.isim && (
-              <p id="isim-hata" role="alert">
+              <p id="isim-hata" className="error" role="alert">
                 {errorMessages.isim}
               </p>
             )}
           </div>
 
-          <div>
-            <label htmlFor="not">Sipariş Notu</label>
+          <div className="form-group">
+            <label htmlFor="not" className="form-title">
+              Sipariş Notu
+            </label>
             <textarea
               id="not"
               name="not"
+              className="text-field"
               placeholder="Siparişine eklemek istediğin bir not var mı?"
               value={form.not}
               onChange={handleChange}
             />
           </div>
 
-          <hr />
+          <hr className="divider" />
 
-          <div>
-            <div>
+          <div className="order-footer">
+            <div className="quantity">
               <button
                 type="button"
                 aria-label="Adedi azalt"
@@ -275,21 +284,25 @@ export default function OrderPizza() {
               </button>
             </div>
 
-            <div>
-              <section aria-labelledby="toplam-baslik">
+            <div className="summary">
+              <section className="summary-card" aria-labelledby="toplam-baslik">
                 <h3 id="toplam-baslik">Sipariş Toplamı</h3>
                 <dl>
-                  <div>
+                  <div className="summary-row">
                     <dt>Seçimler</dt>
                     <dd>{secimlerFiyati.toFixed(2)}₺</dd>
                   </div>
-                  <div>
+                  <div className="summary-row summary-total">
                     <dt>Toplam</dt>
                     <dd>{toplamFiyat.toFixed(2)}₺</dd>
                   </div>
                 </dl>
               </section>
-              <button type="submit" disabled={!isFormValid || isSubmitting}>
+              <button
+                type="submit"
+                className="submit-button"
+                disabled={!isFormValid || isSubmitting}
+              >
                 SİPARİŞ VER
               </button>
             </div>
@@ -299,3 +312,4 @@ export default function OrderPizza() {
     </>
   )
 }
+

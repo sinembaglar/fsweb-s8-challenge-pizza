@@ -37,9 +37,11 @@ describe('Sipariş formu', () => {
   })
 
   it('formu gönderip onay sayfasına gidiyor', () => {
-    cy.intercept('POST', 'https://reqres.in/api/pizza', {
-      statusCode: 201,
-      body: { id: '123', createdAt: '2026-10-16T12:00:00.000Z' },
+    cy.intercept('POST', 'https://reqres.in/api/pizza', (req) => {
+      req.reply({
+        statusCode: 201,
+        body: { ...req.body, id: '123', createdAt: '2026-10-16T12:00:00.000Z' },
+      })
     }).as('siparisGonder')
 
     cy.get('#boyut-orta').check()
@@ -62,6 +64,43 @@ describe('Sipariş formu', () => {
       })
 
     cy.url().should('include', '/onay')
-    cy.contains('SİPARİŞİNİZ ALINDI!').should('be.visible')
+    cy.contains('SİPARİŞ ALINDI').should('be.visible')
+  })
+
+  it('onay sayfasında sipariş özetini gösteriyor', () => {
+    cy.intercept('POST', 'https://reqres.in/api/pizza', (req) => {
+      req.reply({ statusCode: 201, body: { ...req.body, id: '123' } })
+    })
+
+    cy.get('#boyut-buyuk').check()
+    cy.get('#hamur').select('Kalın')
+    cy.get('#pepperoni').check()
+    cy.get('#sosis').check()
+    cy.get('#misir').check()
+    cy.get('#ananas').check()
+    cy.get('#isim').type('Sinem')
+    cy.contains('button', 'SİPARİŞ VER').click()
+
+    cy.contains('#123').should('be.visible')
+    cy.contains('dd', 'Büyük').should('be.visible')
+    cy.contains('dd', 'Pepperoni, Sosis, Mısır, Ananas').should('be.visible')
+    cy.contains('dd', '105.50₺').should('be.visible')
+  })
+
+  it('ağ hatasında kullanıcıya mesaj gösteriyor', () => {
+    cy.intercept('POST', 'https://reqres.in/api/pizza', { forceNetworkError: true })
+
+    cy.get('#boyut-orta').check()
+    cy.get('#hamur').select('İnce')
+    cy.get('#pepperoni').check()
+    cy.get('#sosis').check()
+    cy.get('#misir').check()
+    cy.get('#ananas').check()
+    cy.get('#isim').type('Sinem')
+    cy.contains('button', 'SİPARİŞ VER').click()
+
+    cy.contains('İnternete bağlanılamadı').should('be.visible')
+    cy.url().should('include', '/siparis')
+    cy.contains('button', 'SİPARİŞ VER').should('be.enabled')
   })
 })

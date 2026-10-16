@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
+import axios from 'axios'
 import logo from '../../images/iteration-1-images/logo.svg'
 
 const malzemeler = [
@@ -58,6 +59,8 @@ export default function OrderPizza() {
   const [form, setForm] = useState(initialForm)
   const [errors, setErrors] = useState(initialErrors)
   const [adet, setAdet] = useState(1)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const history = useHistory()
 
   const secimlerFiyati = form.malzemeler.length * MALZEME_FIYATI * adet
   const toplamFiyat = PIZZA_FIYATI * adet + secimlerFiyati
@@ -84,10 +87,23 @@ export default function OrderPizza() {
 
   function handleSubmit(event) {
     event.preventDefault()
-    if (!isFormValid) return
+    if (!isFormValid || isSubmitting) return
 
     const siparis = { ...form, adet, toplam: toplamFiyat }
-    console.log(siparis)
+    setIsSubmitting(true)
+
+    axios
+      .post('https://reqres.in/api/pizza', siparis, {
+        headers: { 'x-api-key': import.meta.env.VITE_REQRES_API_KEY },
+      })
+      .then((response) => {
+        console.log('Sipariş özeti:', response.data)
+        history.push('/onay')
+      })
+      .catch((error) => {
+        console.error('Sipariş gönderilemedi:', error)
+        setIsSubmitting(false)
+      })
   }
 
   return (
@@ -273,7 +289,7 @@ export default function OrderPizza() {
                   </div>
                 </dl>
               </section>
-              <button type="submit" disabled={!isFormValid}>
+              <button type="submit" disabled={!isFormValid || isSubmitting}>
                 SİPARİŞ VER
               </button>
             </div>

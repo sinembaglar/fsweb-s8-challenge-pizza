@@ -56,11 +56,12 @@ function isFieldValid(name, value) {
   }
 }
 
-export default function OrderPizza() {
+export default function OrderPizza({ onSiparisAlindi }) {
   const [form, setForm] = useState(initialForm)
   const [errors, setErrors] = useState(initialErrors)
   const [adet, setAdet] = useState(1)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState('')
   const history = useHistory()
 
   const secimlerFiyati = form.malzemeler.length * MALZEME_FIYATI * adet
@@ -90,8 +91,14 @@ export default function OrderPizza() {
     event.preventDefault()
     if (!isFormValid || isSubmitting) return
 
-    const siparis = { ...form, adet, toplam: toplamFiyat }
+    const siparis = {
+      ...form,
+      adet,
+      secimler: secimlerFiyati,
+      toplam: toplamFiyat,
+    }
     setIsSubmitting(true)
+    setSubmitError('')
 
     axios
       .post('https://reqres.in/api/pizza', siparis, {
@@ -99,10 +106,16 @@ export default function OrderPizza() {
       })
       .then((response) => {
         console.log('Sipariş özeti:', response.data)
+        onSiparisAlindi(response.data)
         history.push('/onay')
       })
       .catch((error) => {
         console.error('Sipariş gönderilemedi:', error)
+        setSubmitError(
+          error.response
+            ? 'Sipariş gönderilemedi. Lütfen daha sonra tekrar deneyin.'
+            : 'İnternete bağlanılamadı. Bağlantınızı kontrol edip tekrar deneyin.',
+        )
         setIsSubmitting(false)
       })
   }
@@ -305,6 +318,11 @@ export default function OrderPizza() {
               >
                 SİPARİŞ VER
               </button>
+              {submitError && (
+                <p className="error submit-error" role="alert">
+                  {submitError}
+                </p>
+              )}
             </div>
           </div>
         </form>

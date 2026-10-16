@@ -285,6 +285,10 @@ textarea.text-field {
   opacity: 0.5;
 }
 
+.submit-error {
+  margin-top: 0.75rem;
+}
+
 /* Mobil */
 
 @media (max-width: 600px) {

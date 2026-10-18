@@ -2,7 +2,15 @@ import { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import axios from 'axios'
 import logo from '../../images/iteration-1-images/logo.svg'
+import formBanner from '../../images/iteration-2-images/pictures/form-banner.png'
+import Footer from './Footer'
 import './OrderPizza.css'
+
+const boyutlar = [
+  { id: 'boyut-kucuk', deger: 'Küçük', kisa: 'S' },
+  { id: 'boyut-orta', deger: 'Orta', kisa: 'M' },
+  { id: 'boyut-buyuk', deger: 'Büyük', kisa: 'L' },
+]
 
 const malzemeler = [
   { id: 'pepperoni', ad: 'Pepperoni' },
@@ -124,71 +132,63 @@ export default function OrderPizza({ onSiparisAlindi }) {
     <>
       <header className="order-header">
         <img src={logo} alt="Teknolojik Yemekler" />
-        <nav className="breadcrumb" aria-label="Sayfa yolu">
-          <Link to="/">Anasayfa</Link>
-          <span aria-hidden="true"> - </span>
-          <span>Seçenekler</span>
-          <span aria-hidden="true"> - </span>
-          <strong aria-current="page">Sipariş Oluştur</strong>
-        </nav>
       </header>
 
-      <main className="order-page">
-        <section className="pizza-info">
-          <h2>Position Absolute Acı Pizza</h2>
-          <div className="pizza-meta">
-            <p className="pizza-price">{PIZZA_FIYATI.toFixed(2)}₺</p>
-            <p>4.9</p>
-            <p>(200)</p>
-          </div>
-          <p className="pizza-description">
-            Frontent Dev olarak hala position:absolute kullanıyorsan bu çok acı
-            pizza tam sana göre. Pizza, domates, peynir ve genellikle çeşitli
-            diğer malzemelerle kaplanmış, daha sonra geleneksel olarak odun
-            ateşinde bir fırında yüksek sıcaklıkta pişirilen, genellikle
-            yuvarlak, düzleştirilmiş mayalı buğday bazlı hamurdan oluşan İtalyan
-            kökenli lezzetli bir yemektir. Küçük bir pizzaya bazen pizzetta denir.
-          </p>
-        </section>
+      <main>
+        <div className="order-intro">
+          <img src={formBanner} alt="" className="order-banner" />
+          <div className="order-container">
+            <nav className="breadcrumb" aria-label="Sayfa yolu">
+              <Link to="/">Anasayfa</Link>
+              <span aria-hidden="true"> - </span>
+              <span>Seçenekler</span>
+              <span aria-hidden="true"> - </span>
+              <strong aria-current="page">Sipariş Oluştur</strong>
+            </nav>
 
-        <form className="order-form" onSubmit={handleSubmit}>
+            <section className="pizza-info">
+              <h2>Position Absolute Acı Pizza</h2>
+              <div className="pizza-meta">
+                <p className="pizza-price">{PIZZA_FIYATI.toFixed(2)}₺</p>
+                <p>4.9</p>
+                <p>(200)</p>
+              </div>
+              <p className="pizza-description">
+                Frontent Dev olarak hala position:absolute kullanıyorsan bu çok
+                acı pizza tam sana göre. Pizza, domates, peynir ve genellikle
+                çeşitli diğer malzemelerle kaplanmış, daha sonra geleneksel
+                olarak odun ateşinde bir fırında yüksek sıcaklıkta pişirilen,
+                genellikle yuvarlak, düzleştirilmiş mayalı buğday bazlı hamurdan
+                oluşan İtalyan kökenli lezzetli bir yemektir. Küçük bir pizzaya
+                bazen pizzetta denir.
+              </p>
+            </section>
+          </div>
+        </div>
+
+        <form className="order-form order-container" onSubmit={handleSubmit}>
           <div className="form-row">
             <fieldset className="form-group">
               <legend className="form-title">
                 Boyut Seç <span className="required" aria-hidden="true">*</span>
               </legend>
-              <div className="option">
-                <input
-                  type="radio"
-                  id="boyut-kucuk"
-                  name="boyut"
-                  value="Küçük"
-                  checked={form.boyut === 'Küçük'}
-                  onChange={handleChange}
-                />
-                <label htmlFor="boyut-kucuk">Küçük</label>
-              </div>
-              <div className="option">
-                <input
-                  type="radio"
-                  id="boyut-orta"
-                  name="boyut"
-                  value="Orta"
-                  checked={form.boyut === 'Orta'}
-                  onChange={handleChange}
-                />
-                <label htmlFor="boyut-orta">Orta</label>
-              </div>
-              <div className="option">
-                <input
-                  type="radio"
-                  id="boyut-buyuk"
-                  name="boyut"
-                  value="Büyük"
-                  checked={form.boyut === 'Büyük'}
-                  onChange={handleChange}
-                />
-                <label htmlFor="boyut-buyuk">Büyük</label>
+              <div className="size-options">
+                {boyutlar.map((boyut) => (
+                  <div key={boyut.id} className="size-option">
+                    <input
+                      type="radio"
+                      id={boyut.id}
+                      name="boyut"
+                      value={boyut.deger}
+                      checked={form.boyut === boyut.deger}
+                      onChange={handleChange}
+                      aria-label={boyut.deger}
+                    />
+                    <label htmlFor={boyut.id} aria-hidden="true">
+                      {boyut.kisa}
+                    </label>
+                  </div>
+                ))}
               </div>
             </fieldset>
 
@@ -203,7 +203,7 @@ export default function OrderPizza({ onSiparisAlindi }) {
                 onChange={handleChange}
               >
                 <option value="" disabled>
-                  Hamur Kalınlığı
+                  — Hamur Kalınlığı Seç —
                 </option>
                 <option value="İnce">İnce</option>
                 <option value="Orta">Orta</option>
@@ -327,6 +327,8 @@ export default function OrderPizza({ onSiparisAlindi }) {
           </div>
         </form>
       </main>
+
+      <Footer />
     </>
   )
 }

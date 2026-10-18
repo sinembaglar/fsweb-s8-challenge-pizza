@@ -4,6 +4,19 @@ describe('Anasayfa', () => {
     cy.contains('ACIKTIM').click()
     cy.url().should('include', '/siparis')
   })
+
+  it('kategori sekmesine tıklayınca o sekme aktif oluyor', () => {
+    cy.visit('/')
+    cy.contains('.category-tab', 'Pizza').should('have.attr', 'aria-pressed', 'true')
+    cy.contains('.category-tab', 'Burger').click()
+    cy.contains('.category-tab', 'Burger').should('have.attr', 'aria-pressed', 'true')
+    cy.contains('.category-tab', 'Pizza').should('have.attr', 'aria-pressed', 'false')
+  })
+
+  it('3 ürün kartını listeliyor', () => {
+    cy.visit('/')
+    cy.get('.product-card').should('have.length', 3)
+  })
 })
 
 describe('Sipariş formu', () => {

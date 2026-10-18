@@ -1,9 +1,11 @@
-.home {
-  min-height: 100vh;
+/* Hero */
+
+.hero {
+  min-height: clamp(560px, 56.25vw, 1080px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 5rem 1rem 0;
+  padding: 3.5rem 1rem 0;
   color: #ffffff;
   text-align: center;
   background: var(--red) url('../../images/iteration-1-images/home-banner.png')
@@ -14,18 +16,17 @@
   width: 360px;
 }
 
-.hero {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2.5rem;
-  margin-top: 2.5rem;
+.hero-tagline {
+  margin: 2.5rem 0 0;
+  font-family: 'Satisfy', cursive;
+  font-size: 1.75rem;
+  color: var(--yellow);
 }
 
 .hero h1 {
-  margin: 0;
+  margin: 0 0 2rem;
   font-family: 'Roboto Condensed', sans-serif;
-  font-size: clamp(2.75rem, 7vw, 5.25rem);
+  font-size: clamp(2.75rem, 6vw, 5.25rem);
   font-weight: 300;
   line-height: 1.15;
   letter-spacing: 0.02em;
@@ -51,13 +52,269 @@
   outline-offset: 3px;
 }
 
+/* Kategori şeridi */
+
+.category-nav {
+  background-color: #ffffff;
+}
+
+.category-nav ul {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 1.75rem 1rem;
+  list-style: none;
+}
+
+.category-nav li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.category-nav img {
+  width: 42px;
+}
+
+/* Bej içerik alanı */
+
+.home-content {
+  background-color: var(--beige);
+  padding: 4.5rem 1rem 5rem;
+}
+
+/* Kampanya kartları */
+
+.promo-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 1rem;
+  max-width: 1080px;
+  margin: 0 auto 5rem;
+}
+
+.promo-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+  min-height: 256px;
+  padding: 2.25rem 2rem;
+  border-radius: 12px;
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.promo-card h2 {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.promo-card--large {
+  grid-row: span 2;
+  color: #ffffff;
+  background-color: var(--red);
+  background-image: url('../../images/iteration-2-images/cta/kart-1.png');
+}
+
+.promo-card--large .promo-title-serif {
+  font-family: 'Quattrocento', serif;
+  font-size: clamp(2.75rem, 5vw, 4.25rem);
+  font-weight: 700;
+  line-height: 1.1;
+  max-width: 6ch;
+}
+
+.promo-card--large p {
+  margin: 0;
+  font-weight: 600;
+}
+
+.promo-card--large .promo-button {
+  margin-top: 0;
+}
+
+.promo-card--dark {
+  color: #ffffff;
+  background-color: var(--dark-gray);
+  background-image: url('../../images/iteration-2-images/cta/kart-2.png');
+}
+
+.promo-card--light {
+  color: var(--dark-gray);
+  background-color: #fdeec6;
+  background-image: url('../../images/iteration-2-images/cta/kart-3.png');
+}
+
+.text-red {
+  color: var(--red);
+}
+
+.promo-button {
+  margin-top: auto;
+  padding: 0.7rem 1.75rem;
+  border-radius: 50px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--red);
+  background-color: #ffffff;
+  transition: transform 0.2s;
+}
+
+.promo-button:hover,
+.promo-button:focus-visible {
+  transform: translateY(-2px);
+}
+
+/* En çok paketlenen menüler */
+
+.popular-menus {
+  max-width: 1080px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.section-tagline {
+  margin: 0;
+  font-family: 'Satisfy', cursive;
+  font-size: 1.75rem;
+  color: var(--red);
+}
+
+.popular-menus h2 {
+  margin: 0.5rem 0 2.5rem;
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 600;
+}
+
+.category-tabs {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.category-tab {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.75rem;
+  border: none;
+  border-radius: 50px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--dark-gray);
+  background-color: #ffffff;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.category-tab img {
+  width: 32px;
+}
+
+.category-tab:hover {
+  background-color: #f0ebe3;
+}
+
+.category-tab[aria-pressed='true'] {
+  color: #ffffff;
+  background-color: var(--dark-gray);
+}
+
+.category-tab:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 2px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.product-card {
+  padding: 1.5rem 2rem 2rem;
+  border-radius: 12px;
+  text-align: left;
+  background-color: #ffffff;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+}
+
+.product-card img {
+  width: 100%;
+  max-width: 240px;
+  margin: 0 auto 1.5rem;
+}
+
+.product-card h3 {
+  margin: 0 0 1rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.product-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+  color: var(--light-gray);
+}
+
+.product-meta strong {
+  font-size: 1.125rem;
+  color: var(--dark-gray);
+}
+
+/* Tablet ve mobil */
+
+@media (max-width: 900px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .category-tabs,
+  .category-nav ul {
+    justify-content: center;
+  }
+}
+
 @media (max-width: 600px) {
-  .home {
+  .hero {
     padding-top: 3rem;
-    background-size: auto 60%;
+    background-size: auto 55%;
   }
 
   .home-logo {
     width: 240px;
+  }
+
+  .promo-cards {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+
+  .promo-card--large {
+    grid-row: auto;
+    min-height: 360px;
+  }
+
+  .product-grid {
+    grid-template-columns: 1fr;
   }
 }
